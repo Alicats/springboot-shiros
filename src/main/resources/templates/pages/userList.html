@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/statics/dataTables/jquery.dataTables.min.css}" />
+    <script th:src="@{/statics/js/jquery/jquery-1.9.1.min.js}"></script>
+    <script th:src="@{/statics/dataTables/jquery.dataTables.min.js}"></script>
+
+    <style>
+        .dataTable{
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <table id="example" class="cell-border" style="width:100%">
+        <thead>
+        <tr>
+            <th><input type="checkbox"></th>
+            <th>序号</th>
+            <th>账号</th>
+            <th>密码</th>
+            <th>名字</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+    </table>
+
+    <script>
+        $(document).ready(function () {
+            $('#example').dataTable({
+
+                "processing": true,      //翻页或者搜索的时候，前端是否给出“正在搜索”等提示信息
+                "serverSide": false,     // true表示使用后台分页
+                "lengthMenu": [3,5,7,9],
+                "ajax": {
+                    "url": "/user/getAllUser",  // 异步传输的后端接口url
+                    "type": "get"      // 请求方式
+                },
+                "fnDrawCallback"    : function(){
+                    this.api().column(1).nodes().each(function(cell, i) {
+                        cell.innerHTML =  i + 1;
+                    });
+                },
+                "columns": [
+                    {"defaultContent": ""},
+                    {"defaultContent": ""},
+                    { "data": "userId" },
+                    { "data": "password" },
+                    { "data": "name" },
+                    {"defaultContent": ""},
+                ],
+                "columnDefs": [
+                    {
+                        "targets" : [ 0 ],
+                        "sWidth" : "50px",
+                        "className" : "center",
+                        "data" : "userId",
+                        "render" : function(data, type, full) {
+                            return '<label><input type="checkbox" name="checkbox" value="'
+                                + data
+                                + '"></label>';
+                        }
+                    },
+                    {
+                        "targets" : [ 5 ],
+                        "sWidth" : "180px",
+                        "className" : "center",
+                        "data" : "userId",
+                        "render" : function(data, type, full) {
+                            return '<a href="javascript:void(0);"  title="查看" onclick="view(this,\''
+                                + data
+                                + '\')" >查看</a> <a href="javascript:void(0);" title="修改" onclick="update(this,\''
+                                + data
+                                + '\')" >修改</a>'
+                                + '<a href="javascript:void(0);" title="删除" onclick="del(this,\''
+                                + data
+                                + '\')" >删除</a>';
+
+                        }
+                    },
+                    /*
+                    {
+                        // 隐藏了  第3列和第4列
+
+                        "targets" : [2,3 ],
+                        "visible":false,
+                        "render":function(data){
+                            return data ;
+                        }
+
+                    }
+                    */
+                ],
+                language: {
+                    "sProcessing": "处理中...",
+                    "sLengthMenu": "显示 _MENU_ 项结果",
+                    "sZeroRecords": "没有匹配结果",
+                    "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                    "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                    "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                    "sInfoPostFix": "",
+                    "sSearch": "搜索:",
+                    "sUrl": "",
+                    "sEmptyTable": "表中数据为空",
+                    "sLoadingRecords": "载入中...",
+                    "sInfoThousands": ",",
+                    "oPaginate": {
+                        "sFirst": "首页",
+                        "sPrevious": "上页",
+                        "sNext": "下页",
+                        "sLast": "末页"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": 以升序排列此列",
+                        "sSortDescending": ": 以降序排列此列"
+                    }
+                },
+                "processing" : false,//等待加载效果
+                "ordering" : true,//排序功能
+                "aaSorting" : [],
+                "width" : "100%",
+                "bLengthChange" : true,
+                "iDisplayLength" : 3,
+                "searching" : true,
+                "autoWidth" : false,
+
+            })
+        })
+
+
+        function view(obj,data) {
+            console.log(data);
+        }
+
+        function update(obj,data) {
+            alert(data);
+        }
+
+        function del(obj,data) {
+            console.log(data);
+        }
+    </script>
+</body>
+</html>

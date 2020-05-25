@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+
+    <form>
+        账号 <input type="text" name="userId" id="userId"><br/>
+        密码 <input type="password" name="password" id="password"><br/>
+        <button type="button" onclick="login()">登录</button>
+    </form>
+
+    <script>
+        function login() {
+            var userId = $('#userId').val();
+            var password = $('#password').val();
+
+            $.ajax({
+                url: '/user/toLogin',
+                type: 'post',
+                data: {
+                    userId: userId,
+                    password: password
+                },
+                success: function (data) {
+                    if(data.code===200){
+                        alert('登录成功');
+                        location.href="/index";
+                    }
+                }
+            })
+
+        }
+    </script>
+</body>
+</html>
