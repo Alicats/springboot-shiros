@@ -10,12 +10,12 @@ class SpringbootShiroApplicationTests {
     @Test
     void contextLoads() {
 
-        String password1 = new SimpleHash("MD5","123","teacher1",1024).toString();
-        System.out.println("password1 "+password1);
-        String password2 = new SimpleHash("MD5","123","admin",1024).toString();
-        System.out.println("password1 "+password2);
+        String password1 = new SimpleHash("MD5","123","admin",1024).toString();
+        System.out.println("admin "+password1);
+        String password2 = new SimpleHash("MD5","123","teacher1",1024).toString();
+        System.out.println("teacher1 "+password2);
         String password3 = new SimpleHash("MD5","123","user1",1024).toString();
-        System.out.println("password1 "+password3);
+        System.out.println("user1 "+password3);
     }
 
 }
