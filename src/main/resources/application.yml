@@ -6,6 +6,10 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
   thymeleaf:
     cache: false
+  quartz:
+    job-store-type: jdbc
+    jdbc:
+      initialize-schema: always
 
 
 mybatis:
