@@ -23,6 +23,9 @@
             <th>账号</th>
             <th>密码</th>
             <th>名字</th>
+            <th>状态</th>
+            <th>开始日期</th>
+            <th>时长</th>
             <th>操作</th>
         </tr>
         </thead>
@@ -34,7 +37,7 @@
 
                 "processing": true,      //翻页或者搜索的时候，前端是否给出“正在搜索”等提示信息
                 "serverSide": false,     // true表示使用后台分页
-                "lengthMenu": [3,5,7,9],
+                "lengthMenu": [15,20],
                 "ajax": {
                     "url": "/user/getAllUser",  // 异步传输的后端接口url
                     "type": "get"      // 请求方式
@@ -50,6 +53,9 @@
                     { "data": "userId" },
                     { "data": "password" },
                     { "data": "name" },
+                    { "data": "status"},
+                    { "data": "date"},
+                    { "data": "time"},
                     {"defaultContent": ""},
                 ],
                 "columnDefs": [
@@ -65,7 +71,7 @@
                         }
                     },
                     {
-                        "targets" : [ 5 ],
+                        "targets" : [ 8 ],
                         "sWidth" : "180px",
                         "className" : "center",
                         "data" : "userId",
@@ -75,24 +81,29 @@
                                 + '\')" >查看</a> <a href="javascript:void(0);" title="修改" onclick="update(this,\''
                                 + data
                                 + '\')" >修改</a>'
-                                + '<a href="javascript:void(0);" title="删除" onclick="del(this,\''
+                                + '<a href="javascript:void(0);" title="移除" onclick="del(this,\''
                                 + data
-                                + '\')" >删除</a>';
+                                + '\')" >删除</a>'
+                                + '<a href="javascript:void(0);" title="暂停" onclick="stop(this,\''
+                                + data
+                                + '\')" >暂停</a>'
+                                + '<a href="javascript:void(0);" title="恢复" onclick="resume(this,\''
+                                + data
+                                + '\')" >恢复</a>';
+
 
                         }
                     },
-                    /*
                     {
                         // 隐藏了  第3列和第4列
-
-                        "targets" : [2,3 ],
+                        "targets" : [3,4 ],
                         "visible":false,
                         "render":function(data){
                             return data ;
                         }
 
                     }
-                    */
+
                 ],
                 language: {
                     "sProcessing": "处理中...",
@@ -123,7 +134,7 @@
                 "aaSorting" : [],
                 "width" : "100%",
                 "bLengthChange" : true,
-                "iDisplayLength" : 3,
+                "iDisplayLength" : 15,
                 "searching" : true,
                 "autoWidth" : false,
 
@@ -141,6 +152,35 @@
 
         function del(obj,data) {
             alert(data);
+        }
+
+        function stop(obj,data) {
+
+            $.ajax({
+                url: '/user/stopJob/'+data,
+                type: 'get',
+                success: function (dt) {
+                    if(dt.code === 200){
+                        alert('暂停成功');
+                    }else{
+                        alert(dt.data);
+                    }
+                }
+            })
+        }
+
+        function resume(obj,data) {
+            $.ajax({
+                url: '/user/resumeJob/'+data,
+                type: 'get',
+                success: function (dt) {
+                    if(dt.code === 200){
+                        alert('恢复成功');
+                    }else{
+                        alert(dt.data);
+                    }
+                }
+            })
         }
     </script>
 </body>

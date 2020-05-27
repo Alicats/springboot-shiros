@@ -14,10 +14,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -48,6 +45,14 @@ public class UserController {
             return RespObj.build(500,"账号或密码错误",null);
         }
 
+    }
+
+    @RequestMapping("/toRegister")
+    @ResponseBody
+    public RespObj toRegister(String userId, String password,String name,String date,Integer time){
+        System.out.println("userId: "+userId+" password: "+password+" name: "+name+" date: "+date+" time: "+time);
+
+        return userService.addUser(userId,password,name,date,time);
     }
 
     @PostMapping("/logout")
@@ -81,7 +86,20 @@ public class UserController {
             jsonObject.put("data",userList);
 
         }
-        System.out.println(jsonObject);
         return jsonObject;
+    }
+
+    @GetMapping("/stopJob/{userId}")
+    @ResponseBody
+    public RespObj stopJob(@PathVariable("userId")String userId){
+        System.out.println("userId: "+userId);
+        return userService.stopJob(userId);
+    }
+
+    @GetMapping("/resumeJob/{userId}")
+    @ResponseBody
+    public RespObj resumeJob(@PathVariable("userId")String userId){
+        System.out.println("userId: "+userId);
+        return userService.resumeJob(userId);
     }
 }

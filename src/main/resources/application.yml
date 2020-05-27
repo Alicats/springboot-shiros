@@ -1,15 +1,12 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/db_shiro?useUnicode=true&amp&characterEncoding=utf-8&serverTimezone=GMT
+    url: jdbc:mysql://localhost:3306/db_shiro?useUnicode=true&amp&characterEncoding=utf-8&serverTimezone=GMT%2B8
     username: root
     password: 123456
     type: com.alibaba.druid.pool.DruidDataSource
   thymeleaf:
     cache: false
-  quartz:
-    job-store-type: jdbc
-    jdbc:
-      initialize-schema: always
+
 
 
 mybatis:

@@ -48,4 +48,8 @@ public class SysController {
         return "pages/userList";
     }
 
+    @RequestMapping("/register")
+    public String register(){
+        return "register";
+    }
 }

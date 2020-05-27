@@ -20,4 +20,21 @@
         SELECT *
         FROM tb_user
     </select>
+
+    <insert id="addUser" parameterType="User">
+        INSERT INTO tb_user(user_id,password,`name`,status,`date`,`time`)
+        VALUES (#{userId},#{password},#{name},0,#{date},#{time})
+    </insert>
+
+    <update id="startUpdateUserStatus" parameterType="String">
+        UPDATE tb_user
+        SET status=1
+        WHERE user_id=#{userId}
+    </update>
+
+    <update id="closeUpdateUserStatus" parameterType="String">
+        UPDATE tb_user
+        SET status=2
+        WHERE user_id=#{userId}
+    </update>
 </mapper>

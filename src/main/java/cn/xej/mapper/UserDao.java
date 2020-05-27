@@ -13,4 +13,10 @@ public interface UserDao {
     public List<String> queryRolesIdByUserId(String userId);
 
     public List<User> getAllUser();
+
+    public void addUser(User user);
+
+    public void startUpdateUserStatus(String userId);
+
+    public void closeUpdateUserStatus(String userId);
 }
