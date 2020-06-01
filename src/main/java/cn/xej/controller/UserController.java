@@ -63,10 +63,10 @@ public class UserController {
         return RespObj.build(200,"ok",null);
     }
 
-    // 下载题目模板excel
+    // 下载图片
     @GetMapping("/imageDownload")
     @ResponseBody
-    public void excelDownload(HttpServletResponse response){
+    public void imageDownload(HttpServletResponse response){
         userService.imageDownload(response);
     }
 

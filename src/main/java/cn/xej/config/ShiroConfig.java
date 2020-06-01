@@ -48,18 +48,18 @@ public class ShiroConfig {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(defaultWebSecurityManager);
 
-        shiroFilterFactoryBean.setLoginUrl("/welcome");
-        shiroFilterFactoryBean.setUnauthorizedUrl("/unauthorized");
-        shiroFilterFactoryBean.setSuccessUrl("/index");
+        shiroFilterFactoryBean.setLoginUrl("/sys/welcome");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/sys/unauthorized");
+        shiroFilterFactoryBean.setSuccessUrl("/sys/index");
 
         Map<String,String> map = new LinkedHashMap<String, String>();
 
-        map.put("/index","anon");
+        map.put("/sys/index","anon");
         map.put("/user/toLogin","anon");
-        map.put("/register","anon");
+        map.put("/sys/register","anon");
         map.put("/user/toRegister","anon");
-        map.put("/test","anon");
-        map.put("/demo1","anon");
+        map.put("/sys/test","anon");
+        map.put("/sys/demo1","anon");
         map.put("/statics/*","anon");
         map.put("/**","authc");
 

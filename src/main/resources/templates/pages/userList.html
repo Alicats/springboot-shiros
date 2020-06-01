@@ -39,7 +39,7 @@
                 "serverSide": false,     // true表示使用后台分页
                 "lengthMenu": [15,20],
                 "ajax": {
-                    "url": "/user/getAllUser",  // 异步传输的后端接口url
+                    "url": "/shiro/user/getAllUser",  // 异步传输的后端接口url
                     "type": "get"      // 请求方式
                 },
                 "fnDrawCallback"    : function(){
@@ -157,7 +157,7 @@
         function stop(obj,data) {
 
             $.ajax({
-                url: '/user/stopJob/'+data,
+                url: '/shiro/user/stopJob/'+data,
                 type: 'get',
                 success: function (dt) {
                     if(dt.code === 200){
@@ -171,7 +171,7 @@
 
         function resume(obj,data) {
             $.ajax({
-                url: '/user/resumeJob/'+data,
+                url: '/shiro/user/resumeJob/'+data,
                 type: 'get',
                 success: function (dt) {
                     if(dt.code === 200){

@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.scheduling.quartz.AdaptableJobFactory;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
+import org.springframework.util.ReflectionUtils;
 
 @Configuration
 public class QuartzConfig {
@@ -32,10 +33,12 @@ public class QuartzConfig {
             @Override
             protected Object createJobInstance(TriggerFiredBundle bundle) throws Exception {
                 Object jobInstance = super.createJobInstance(bundle);
+                // 把Job交给Spring来管理，这样Job就能使用由Spring产生的Bean了
                 capableBeanFactory.autowireBean(jobInstance);
                 return jobInstance;
             }
         };
+
     }
 
     @Bean

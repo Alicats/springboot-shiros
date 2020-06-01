@@ -21,7 +21,7 @@
             var password = $('#password').val();
 
             $.ajax({
-                url: '/user/toLogin',
+                url: '/shiro/user/toLogin',
                 type: 'post',
                 data: {
                     userId: userId,
@@ -30,7 +30,7 @@
                 success: function (data) {
                     if(data.code===200){
                         alert('登录成功');
-                        location.href="/index";
+                        location.href="/shiro/sys/index";
                     }
                 }
             })
@@ -38,7 +38,7 @@
         }
 
         function register() {
-            location.href = "/register";
+            location.href = "/shiro/sys/register";
         }
     </script>
 </body>

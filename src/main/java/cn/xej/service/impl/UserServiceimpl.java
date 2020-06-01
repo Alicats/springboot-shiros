@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.text.ParseException;
@@ -52,10 +53,12 @@ public class UserServiceimpl implements UserService {
         try {
             File file = ResourceUtils.getFile( "classpath:static/statics/images/2.png");
 
+
             if(file.exists()){ //判断文件是否存在
                 response.setContentType("image/png");
                 response.setCharacterEncoding("UTF-8");
                 // response.setContentType("application/force-download");
+
                 response.setHeader("Content-Disposition", "attachment;fileName=" +   java.net.URLEncoder.encode(file.getName(),"UTF-8"));
 
                 byte[] buffer = new byte[1024];
@@ -126,7 +129,6 @@ public class UserServiceimpl implements UserService {
             //calendar.add(Calendar.DAY_OF_YEAR, 1);
             //calendar.add(Calendar.HOUR_OF_DAY,1);
             Date date1 = calendar.getTime();
-            System.out.println("转换后date1: "+date1);
             user.setDate(date1);
         }catch (ParseException e) {
             e.printStackTrace();
@@ -179,7 +181,7 @@ public class UserServiceimpl implements UserService {
         if(user.getStatus()==2){
             return RespObj.build(400,"fail","任务已结束");
         }
-//        quartzService.pauseJob(Constance.USER_JOB_START+userId,Constance.USER_JOB_GROUP); // 没有实现暂停
+
         quartzService.pauseJob(Constance.USER_JOB_CLOSE+userId,Constance.USER_JOB_GROUP); // 实现暂停
         return RespObj.build(200,"success",null);
     }
